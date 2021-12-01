@@ -1,0 +1,17 @@
+kind: pipeline
+type: docker
+name: default
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+- name: test
+  image: golang
+  commands:
+  - go test ./...
+
+trigger:
+  branch:
+    - master
