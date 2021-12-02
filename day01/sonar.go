@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
-	"strconv"
-	"strings"
+
+	"github.com/kevinbarbour/advent-of-code-2021/internal/parser"
 )
 
 func main() {
@@ -13,30 +13,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	answer := CountIncreases(ReadInput(os.Args[1]))
+	answer := CountIncreases(parser.ParseToInts(os.Args[1]))
 	fmt.Printf("There are %d increases in the input.\n", answer)
 
-	answer = CountWindowIncreases(ReadInput(os.Args[1]))
+	answer = CountWindowIncreases(parser.ParseToInts(os.Args[1]))
 	fmt.Printf("There are %d window increases in the input.\n", answer)
-}
-
-func ReadInput(filename string) []int {
-	bytes, err := os.ReadFile(filename)
-	if err != nil {
-		fmt.Printf("Invalid file name %s", filename)
-		os.Exit(1)
-	}
-
-	data := string(bytes)
-	split := strings.Split(data, "\n")
-
-	var numbers []int
-	for _, s := range split {
-		n, _ := strconv.Atoi(s)
-		numbers = append(numbers, n)
-	}
-
-	return numbers
 }
 
 func CountIncreases(depths []int) (increases int) {
